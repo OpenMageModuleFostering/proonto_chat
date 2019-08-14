@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <proonto_chat translate="title" module="proonto_chat">
+                                        <title>Proonto Chat</title>
+                                        <sort_order>10</sort_order>
+                                    </proonto_chat>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

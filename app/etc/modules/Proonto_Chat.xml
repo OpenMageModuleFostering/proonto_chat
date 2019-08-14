@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Proonto_Chat>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Proonto_Chat>
+    </modules>
+</config>

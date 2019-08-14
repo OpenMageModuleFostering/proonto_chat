@@ -1,0 +1,19 @@
+<?php
+/**
+ * @var $this Proonto_Chat_Block_Chat
+ */
+?>
+<script type="text/javascript">
+    //<![CDATA[
+    var prefix = ('https:' == document.location.protocol ? 'https://' : 'http://');
+    var proonto = document.createElement('script');
+    proonto.type = 'text/javascript'; proonto.src = prefix + '<?php echo $this->getScriptDomain() ?>/chat/widget.min.js';
+    <?php if ($this->getTestMode()): ?>
+    proonto.setAttribute('proonto-env', 'stg');
+    <?php endif ?>
+    proonto.setAttribute('data-company-id', '<?php echo $this->getCompanyId() ?>');
+    var s = document.getElementsByTagName('script');
+    var lastScriptTag = s[s.length - 1];
+    lastScriptTag.parentNode.insertBefore(proonto, lastScriptTag);
+    //]]>
+</script>

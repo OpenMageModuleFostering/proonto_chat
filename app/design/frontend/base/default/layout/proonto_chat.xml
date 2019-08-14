@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="before_body_end">
+            <block type="proonto_chat/chat" name="proonto.chat" template="proonto/chat/chat.phtml"/>
+        </reference>
+    </default>
+
+    <checkout_onepage_success>
+        <reference name="before_body_end">
+            <block type="proonto_chat/conversion_tracking_order" name="proonto.chat.conversion.tracking.order" template="proonto/chat/conversion/tracking/order.phtml"/>
+        </reference>
+    </checkout_onepage_success>
+
+    <checkout_multishipping_success>
+        <reference name="before_body_end">
+            <block type="proonto_chat/conversion_tracking_order" name="proonto.chat.conversion.tracking.order" template="proonto/chat/conversion/tracking/order.phtml"/>
+        </reference>
+    </checkout_multishipping_success>
+</layout>

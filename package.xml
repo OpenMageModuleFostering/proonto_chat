@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package>
+    <name>Proonto_Chat</name>
+    <version>1.0.0</version>
+    <stability>stable</stability>
+    <license uri="http://opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Proonto is an end to end live support solution which includes an advanced live chat software and qualified sales associates to staff it.</summary>
+    <description>Proonto is an online marketplace that allows online retailers and brands to outsource a complete live support solution which includes an advanced live support software and the qualified sales associates to staff it. Proonto&#x2019;s platform provides online store owners with a constantly expanding pool of product experts from which they can hand pick the associate who will staff their live support platform. The platform eliminates geographical, lingual and cultural borders, making it easy for online retailers to find the right agent for their online store.The Proonto marketplace enables the top sales and customer support associates to work with growing e-commerce brands, regardless of where they happen to be. &#xD;
+The associates are recruited from all over the world and are divided into niche verticals, which makes the certification process much easier, both for the agent and the store owner.</description>
+    <notes>First version which includes:&#xD;
+- chat code intergration;&#xD;
+- conversion tracking code;&#xD;
+- signup capabilities against the platform.</notes>
+    <authors><author><name>Proonto</name><user>Proonto</user><email>support@proonto.com</email></author></authors>
+    <date>2015-09-11</date>
+    <time>09:20:05</time>
+    <contents><target name="magecommunity"><dir name="Proonto"><dir name="Chat"><dir name="Block"><file name="Abstract.php" hash="6cee9b31f195ead28894e6c27071fb92"/><dir name="Adminhtml"><dir name="System"><dir name="Config"><dir name="Form"><dir name="Fieldset"><dir name="General"><file name="Fields.php" hash="a531d87703f885f7bd963d0b5a6bc2ec"/></dir><file name="General.php" hash="3e1f17d500f28aada4ed8effef80e04e"/></dir></dir></dir></dir></dir><file name="Chat.php" hash="02bfdb5cde5c9dcd55ace331216bf990"/><dir name="Conversion"><dir name="Tracking"><file name="Order.php" hash="8b23394b45435b7b94b44718712e6ade"/></dir></dir></dir><dir name="Helper"><file name="Data.php" hash="a41518de09767ba09473f480a44d3e1f"/></dir><dir name="Model"><file name="Observer.php" hash="2e9597c82a523b0bdb2a253ff7bdb70b"/></dir><dir name="etc"><file name="adminhtml.xml" hash="d98f0816a92a145c5499700ef72d931b"/><file name="config.xml" hash="fadf0c21f6301aa78ca64b5d6e350975"/><file name="system.xml" hash="c44770f27d9e86e9f08e4259779b4f95"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Proonto_Chat.xml" hash="88fc0d8137b38073ece2399c2fff14e1"/></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="template"><dir name="proonto"><dir name="chat"><file name="general.phtml" hash="191d744ddf0efd52429556feea4ef704"/></dir></dir></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="template"><dir name="proonto"><dir name="chat"><file name="chat.phtml" hash="2f53a26fedb4f1a5173c2a8feea72097"/><dir name="conversion"><dir name="tracking"><file name="order.phtml" hash="1188fccc45b765f20ecad732f48ffff4"/></dir></dir></dir></dir></dir><dir name="layout"><file name="proonto_chat.xml" hash="557b9306e7a33beb17a1c3437f8e57b0"/></dir></dir></dir></dir></target><target name="magemedia"><dir name="."><file name="proonto_chat_terms_of_use.pdf" hash="9ebd76dcf681d166b9a314807a70da7e"/></dir></target><target name="mageskin"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="proonto"><dir name="chat"><dir name="images"><file name="logo_green_blue_big.png" hash="0b03957ee49dd3ee67e60d3551f1bef6"/><file name="logo_green_blue_small.png" hash="8aa6ae76764c1206adc0cf23294be957"/></dir></dir></dir></dir></dir></dir></target><target name="magelocale"><dir name="en_US"><file name="Proonto_Chat.csv" hash="a73f74909442b1c0e67fee03a8e4df4e"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php><extension><name>curl</name><min/><max/></extension></required></dependencies>
+</package>

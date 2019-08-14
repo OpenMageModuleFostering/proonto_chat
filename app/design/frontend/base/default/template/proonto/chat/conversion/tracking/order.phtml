@@ -1,0 +1,58 @@
+<?php
+/**
+ * @var $this Proonto_Chat_Block_Conversion_Tracking_Order
+ * @var $_order Mage_Sales_Model_Order
+ * @var $_orderItem Mage_Sales_Model_Order_Item
+ */
+$_orders = $this->getOrders();
+?>
+<script type="text/javascript">
+    //<![CDATA[
+    var proontoChatConversionTracking = function() {
+        var companyId = <?php echo $this->getCompanyId() ?>,
+            OID,
+            DB_OID,
+            CURRENCY,
+            TOTAL,
+            DISCOUNT,
+            SHIPPING,
+            TAX,
+            PAYMENT_METHOD,
+            SHIPPING_METHOD,
+            COUPON,
+            ORDER_STATUS,
+            ITEMS_PARAMS,
+            myImage
+            ;
+        <?php foreach ($_orders as $_order): ?>
+        <?php
+        $_itemsParams = '';
+        $i = 1;
+        $_orderItems = $_order->getAllVisibleItems();
+        foreach ($_orderItems as $_orderItem) {
+            $_itemsParams .= '&itemId' . $i . '=' . $_orderItem->getProductId();
+            $_itemsParams .= '&quanity' . $i . '=' . $_orderItem->getQtyOrdered() * 1;
+            $_itemsParams .= '&sku' . $i . '=' . rawurlencode($_orderItem->getSku());
+            $i++;
+        }
+        ?>
+
+        OID = '<?php echo $_order->getIncrementId() ?>';
+        DB_OID = '<?php echo $_order->getId() ?>';
+        CURRENCY = '<?php echo $_order->getOrderCurrencyCode() ?>';
+        TOTAL = <?php echo round($_order->getGrandTotal(), 2) ?>;
+        DISCOUNT = <?php echo round($_order->getDiscountAmount(), 2) ?>;
+        SHIPPING = <?php echo round($_order->getShippingAmount(), 2) ?>;
+        TAX = <?php echo round($_order->getTaxAmount(), 2) ?>;
+        PAYMENT_METHOD = '<?php echo $_order->getPayment()->getMethod() ?>';
+        SHIPPING_METHOD = '<?php echo $_order->getIsNotVirtual() ?  $_order->getShippingMethod() : '' ?>';
+        COUPON = '<?php echo rawurlencode($_order->getCouponCode()) ?>';
+        ORDER_STATUS = '<?php echo $_order->getStatus() ?>';
+        ITEMS_PARAMS = '<?php echo $_itemsParams ?>';
+        myImage = new Image(1, 2);
+        myImage.src = 'https://<?php echo $this->getScriptDomain() ?>/chat/rest/orders/api?source=Magento&' + 'clientId='+((a=document.cookie.match('(^|; )prt_clientId=([^;]*)')) ? a[2]:'') + '&uniqueId='+((b=document.cookie.match('(^|; )prt_uniqueId=([^;]*)')) ? b[2]:'')+ '&CURRENCY=' + CURRENCY +'&OID=' + OID + '&DB_OID=' + DB_OID + '&companyId=' + companyId + '&TOTAL=' + TOTAL + '&DISCOUNT=' + DISCOUNT + '&SHIPPING=' + SHIPPING + '&TAX=' + TAX + '&PAYMENT_METHOD=' + PAYMENT_METHOD + '&SHIPPING_METHOD=' + SHIPPING_METHOD + '&COUPON=' + COUPON + '&ORDER_STATUS=' + ORDER_STATUS + ITEMS_PARAMS + '&url=' + encodeURIComponent(document.location.href)+ '&pageTitle=' + encodeURIComponent(document.title) + '&cookiesEnabled=' + navigator.cookieEnabled;
+        <?php endforeach ?>
+    };
+    proontoChatConversionTracking();
+    //]]>
+</script>

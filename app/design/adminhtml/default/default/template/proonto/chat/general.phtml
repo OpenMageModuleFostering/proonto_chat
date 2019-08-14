@@ -1,0 +1,208 @@
+<?php
+/**
+ * @var $this Proonto_Chat_Block_Adminhtml_System_Config_Form_Fieldset_General_Fields
+ * @var $_helper Proonto_Chat_Helper_Data
+ * @var $_field Varien_Data_Form_Element_Abstract
+ */
+$_helper = $this->helper('proonto_chat');
+$_elements = $this->getElements();
+
+$verified = $this->getVerified();
+$stepClass = $verified ? 'step-verified' : 'step-sign-up';
+
+$_usernameFieldId   = str_replace('/', '_', Proonto_Chat_Helper_Data::XML_PATH_USERNAME);
+$_passwordFieldId   = str_replace('/', '_', Proonto_Chat_Helper_Data::XML_PATH_PASSWORD);
+$_companyFieldId    = str_replace('/', '_', Proonto_Chat_Helper_Data::XML_PATH_COMPANY_ID);
+$_enabledFieldId    = str_replace('/', '_', Proonto_Chat_Helper_Data::XML_PATH_ENABLED);
+?>
+
+<style type="text/css">
+    .step-sign-up .hide-step-sign-up {
+        display: none;
+    }
+    .step-verify .hide-step-verify {
+        display: none;
+    }
+    .step-verified .hide-step-verified {
+        display: none;
+    }
+    #save-config-button-row.hide {
+        display: none;
+    }
+</style>
+
+
+<tr class="hide-step-verify hide-step-verified">
+    <td colspan="4">
+        <p><?php echo $this->__('To start using Proonto in your online store please create your free account.') ?></p>
+        <p><?php echo $this->__('Already have your account?') ?> <a href="javascript:void(0)" class="change-step-button" data-button-title="Verify Your Account" data-step="verify"><?php echo $this->__('Login.') ?></a></p>
+        <br/>
+    </td>
+</tr>
+<?php foreach ($_elements as $_field): ?>
+
+    <?php
+    $_fieldId = $_field->getId();
+    $_fieldHtml = $_field->toHtml();
+
+    switch ($_fieldId) {
+        case $_usernameFieldId:
+            $_fieldHtml = str_replace('id="row_' . $_fieldId . '"', 'id="row_' . $_fieldId . '" class="hide-step-verified"', $_fieldHtml);
+            break;
+        case $_passwordFieldId:
+            $_fieldHtml = str_replace('id="row_' . $_fieldId . '"', 'id="row_' . $_fieldId . '" class="hide-step-verified"', $_fieldHtml);
+            break;
+        case $_companyFieldId:
+            $_fieldHtml = str_replace('id="row_' . $_fieldId . '"', 'id="row_' . $_fieldId . '" class="hide-step-sign-up hide-step-verified"', $_fieldHtml);
+            break;
+        case $_enabledFieldId:
+            $_fieldHtml = str_replace('id="row_' . $_fieldId . '"', 'id="row_' . $_fieldId . '" class="hide-step-sign-up hide-step-verify"', $_fieldHtml);
+            break;
+    }
+
+    echo $_fieldHtml;
+    ?>
+
+
+    <?php if ($_fieldId == $_companyFieldId): ?>
+        <tr class="hide-step-sign-up hide-step-verify">
+            <td class="label">
+                <?php echo $_field->getLabelHtml() ?>
+            </td>
+            <td class="value">
+                <?php echo $_field->getEscapedValue() ?>
+            </td>
+            <td class="scope-label">&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr class="hide-step-sign-up hide-step-verify">
+            <td class="label"></td>
+            <td class="value">
+                <button type="button" class="change-step-button" data-step="verify"><span><span><?php echo $this->__('Edit Company ID') ?></span></span></button>
+            </td>
+            <td class="scope-label">&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+    <?php endif ?>
+
+<?php endforeach ?>
+
+<tr id="save-config-button-row" class="<?php echo $stepClass == 'step-verified' ? 'hide' : ''; ?>" >
+    <td class="label"></td>
+    <td class="value">
+        <button type="button" onclick="configForm.submit()">
+            <span>
+                <span id="multilabel-button"><?php echo ($stepClass == 'step-sign-up') ? $this->__('Create Free Account') : $this->__('Verify Your Account') ?>
+                </span>
+            </span>
+        </button>
+    </td>
+    <td class="scope-label">&nbsp;</td>
+    <td>&nbsp;</td>
+</tr>
+
+<?php if ($stepClass == 'step-sign-up'): ?>
+    <tr class="hide-step-verify hide-step-verified">
+        <td class="label">&nbsp;</td>
+        <td class="value" style="text-align: left">
+            <p><?php echo $this->__('By signing up, I agree to the <a href="%s" target="_blank">terms of service</a>', Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'proonto_chat_terms_of_use.pdf') ?></p>
+        </td>
+        <td class="scope-label">&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+<?php endif ?>
+
+<tr class="hide-step-sign-up">
+    <td colspan="4">
+        <br/>
+        <p><?php echo $this->__('Login <a href="%s" target="_blank">here</a> to set your configurations and start using the app.', 'http://platform.proonto.com') ?></p>
+        <p><?php echo $this->__('Feel free to contact Proonto support at <a href="%1$s">%2$s</a> with any questions.', 'mailto:support@proonto.com', 'support@proonto.com') ?></p>
+    </td>
+</tr>
+
+<script type="text/javascript">
+    //<![CDATA[
+
+    Validation.addAllThese(
+        [
+            ['validate-proonto-company-id', '<?php echo $this->jsQuoteEscape($this->__('Please, enter valid company id')) ?>', function(v) {
+                if (Validation.get('IsEmpty').test(v)) {
+                    return true;
+                }
+
+                if (/[^\d]/.test(v)) {
+                    return false;
+                }
+
+                var numValue = parseInt(v);
+
+                return numValue > 8500000;
+            }]
+        ]
+    );
+
+    $(document).observe('dom:loaded', function() {
+        var i,
+            j,
+            insertImageBefore = $$('.content-header').first(),
+            chatGeneral = $('proonto_chat_general'),
+            relatedFieldIds = [
+                '<?php echo $_usernameFieldId ?>',
+                '<?php echo $_passwordFieldId ?>',
+                '<?php echo $_companyFieldId ?>'
+            ],
+            currentRelatedFieldInheritCheckbox
+            ;
+
+        insertImageBefore.insert({
+            before: '<div style="margin: 10px 0;"><img src="' + SKIN_URL.substring(0, SKIN_URL.indexOf("/skin/adminhtml/")) + '/skin/adminhtml/default/default/proonto/chat/images/logo_green_blue_big.png" alt="" width="300" style="display: block;"/></div>'
+        });
+
+        chatGeneral.addClassName('<?php echo $stepClass ?>');
+
+        $$('.change-step-button').each(function(element, index) {
+            element.observe('click', function(e) {
+                e.preventDefault();
+                chatGeneral.removeClassName('step-sign-up');
+                chatGeneral.removeClassName('step-verify');
+                chatGeneral.removeClassName('step-verified');
+                chatGeneral.addClassName('step-' + element.readAttribute('data-step'));
+
+                if (element.readAttribute('data-button-title')) {
+                    $('multilabel-button').update(element.readAttribute('data-button-title'));
+                }
+                $('save-config-button-row').removeClassName('hide');
+            });
+        });
+
+        for (i = 0; i < relatedFieldIds.length; i++) {
+            currentRelatedFieldInheritCheckbox = $(relatedFieldIds[i] + '_inherit');
+            if (!currentRelatedFieldInheritCheckbox) {
+                break;
+            }
+
+            currentRelatedFieldInheritCheckbox.observe('change', function(e) {
+                var inheritCheckbox;
+                var input;
+                for (j = 0; j < relatedFieldIds.length; j++) {
+                    if (i == j) {
+                        continue;
+                    }
+                    inheritCheckbox = $(relatedFieldIds[j] + '_inherit');
+                    input = $(relatedFieldIds[j]);
+
+                    inheritCheckbox.checked = this.checked;
+                    input.disabled = this.checked;
+
+                    if (this.checked) {
+                        input.addClassName('disabled');
+                    } else {
+                        input.removeClassName('disabled');
+                    }
+                }
+            });
+        }
+    });
+
+    //]]>
+</script>
