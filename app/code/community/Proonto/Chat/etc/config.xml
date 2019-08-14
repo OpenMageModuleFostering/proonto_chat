@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Proonto_Chat>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </Proonto_Chat>
     </modules>
     <global>

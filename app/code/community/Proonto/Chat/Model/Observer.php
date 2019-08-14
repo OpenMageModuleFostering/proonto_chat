@@ -210,7 +210,7 @@ class Proonto_Chat_Model_Observer
                         ->setValue($companyId)
                         ->save();
                     $verified = 1;
-                    $session->addSuccess($this->getChatHelper()->__('You was successfully signed up.'));
+                    $session->addSuccess($this->getChatHelper()->__('You were successfully signed up.'));
                 }
             } catch (Mage_Core_Exception $e) {
                 $session->addError($e->getMessage());
