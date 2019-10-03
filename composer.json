@@ -1,7 +1,7 @@
 {
-    "name": "OpenMageModuleFostering\/Proonto_Chat",
+    "name": "openmage-module-fostering\/proonto_chat",
     "type": "magento-module",
-    "license": "OSL-v3.0",
+    "license": "OSL-3.0",
     "homepage": "",
     "description": "Proonto is an end to end live support solution which includes an advanced live chat software and qualified sales associates to staff it.",
     "authors": [
